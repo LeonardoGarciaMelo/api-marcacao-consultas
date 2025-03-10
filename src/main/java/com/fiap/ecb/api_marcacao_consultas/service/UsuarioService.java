@@ -13,11 +13,11 @@ public class UsuarioService {
         this.usuarioRepository = usuarioRepository;
     }
     public Usuario salvarUsuario(Usuario usuario){
-        usuario.setSenha(passwordEncoder.encode(usuario.getSenha));
+        usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
         return usuarioRepository.save(usuario);
     }
     public Usuario autenticar(String email, String senha){
-        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(() -> RuntimeException("Usuario não encontrado"));
+        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Usuario não encontrado"));
         if(!passwordEncoder.matches(senha,usuario.getSenha())){
             throw new RuntimeException("Senha incorreta");
         }
