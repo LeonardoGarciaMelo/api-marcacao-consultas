@@ -16,13 +16,14 @@ public class JwtTokenProvider {
     @Value("${jwt.expiration}")
     private long tempoExpiracao;
 
-    public JwtTokenProvider(@Value("${jwt.security") String segredo){
-        //Gera Uma chave segura ao invés da fornecida
-
+    public JwtTokenProvider(@Value("${jwt.secret}") String segredo) {
+        // Gerar uma chave segura em vez de usar a chave fornecida
+        // Isso garantirá que temos uma chave com comprimento suficiente
         this.chaveSecreta = Keys.secretKeyFor(SignatureAlgorithm.HS256);
     }
 
-    public String gerarToken(String email){
+    // Gerar token JWT
+    public String gerarToken(String email) {
         Date agora = new Date();
         Date expiracao = new Date(agora.getTime() + tempoExpiracao);
 
@@ -34,7 +35,8 @@ public class JwtTokenProvider {
                 .compact();
     }
 
-    public String obterEmailDoToken(String token){
+    // Extrair email do token
+    public String obterEmailDoToken(String token) {
         return Jwts.parser()
                 .verifyWith((javax.crypto.SecretKey)chaveSecreta)
                 .build()
@@ -43,14 +45,15 @@ public class JwtTokenProvider {
                 .getSubject();
     }
 
-    public boolean validarToken(String token){
-        try{
+    // Validar token JWT
+    public boolean validarToken(String token) {
+        try {
             Jwts.parser()
                     .verifyWith((javax.crypto.SecretKey)chaveSecreta)
                     .build()
                     .parseSignedClaims(token);
             return true;
-        } catch (JwtException | IllegalArgumentException e){
+        } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
     }

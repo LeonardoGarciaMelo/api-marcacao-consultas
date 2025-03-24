@@ -1,18 +1,15 @@
 package com.fiap.ecb.api_marcacao_consultas.service;
-
 import com.fiap.ecb.api_marcacao_consultas.model.Especialidade;
-import com.fiap.ecb.api_marcacao_consultas.repository.EspecialidadeRespository;
+import com.fiap.ecb.api_marcacao_consultas.repository.EspecialidadeRepository;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-
 @Service
 public class EspecialidadeService {
-    private final EspecialidadeRespository especialidadeRespository;
-    public EspecialidadeService(EspecialidadeRespository especialidadeRespository){
-        this.especialidadeRespository = especialidadeRespository;
+    private final EspecialidadeRepository especialidadeRepository;
+    public EspecialidadeService(EspecialidadeRepository especialidadeRepository) {
+        this.especialidadeRepository = especialidadeRepository;
     }
-    public List<Especialidade> listarEspecialidades(){
-        return especialidadeRespository.findAll();
+    public List<Especialidade> listarEspecialidades() {
+        return especialidadeRepository.findAll();
     }
 }

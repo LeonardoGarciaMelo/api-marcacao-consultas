@@ -1,8 +1,6 @@
 package com.fiap.ecb.api_marcacao_consultas.model;
-
 import jakarta.persistence.*;
 import lombok.Data;
-
 @Data
 @Entity
 @Table(name = "especialidades")
